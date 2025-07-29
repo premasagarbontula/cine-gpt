@@ -13,3 +13,6 @@
 -Created Redux Store with userSlice
 -Implemented Signout
 -Update Profile API Call
+-Register TMDB API and get Access Token
+-Get Data from TMDB now playing movies list API
+-created Custom Hook useNowPlayingMovies
