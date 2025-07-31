@@ -1,9 +1,10 @@
-import React, { useEffect } from "react";
+import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
 import { addNowPlayingMovies } from "../utils/moviesSlice";
+import { fallbackNowPlayingMovies } from "../utils/staticApiData";
 
-const useNowPlayingMovies = () => {
+export const useNowPlayingMovies = () => {
   const dispatch = useDispatch();
 
   const getNowPlayingMovies = async () => {
@@ -13,11 +14,14 @@ const useNowPlayingMovies = () => {
         API_OPTIONS
       );
 
+      if (!response.ok) throw new Error("Failed to fetch TMDB data");
+
       const data = await response.json();
-      // console.log(data);
       dispatch(addNowPlayingMovies(data.results));
     } catch (error) {
-      console.error("Error fetching now playing movies:", error);
+      console.log(error);
+      console.error("TMDB fetch failed, using fallback:", error);
+      dispatch(addNowPlayingMovies(fallbackNowPlayingMovies));
     }
   };
 

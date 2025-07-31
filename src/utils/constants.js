@@ -19,3 +19,5 @@ export const API_OPTIONS = {
     Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
   },
 };
+
+export const TMDB_POSTER_PATH = "https://image.tmdb.org/t/p/w200";

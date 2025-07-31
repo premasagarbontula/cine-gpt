@@ -1,5 +1,7 @@
 import Header from "./Header";
 import useNowPlayingMovies from "../hooks/useNowPlayingMovies";
+import MainContainer from "./MainContainer";
+import SecondaryContainer from "./SecondaryContainer";
 
 const Browse = () => {
   // Custom hook to fetch now playing movies
@@ -9,7 +11,8 @@ const Browse = () => {
   return (
     <div>
       <Header />
-      <h1>Browse Page</h1>
+      <MainContainer />
+      <SecondaryContainer />
     </div>
   );
 };
