@@ -1,5 +1,5 @@
 import { useSelector } from "react-redux";
-import useTrailerVideoKey from "../hooks/useTrailerVideoKey";
+import useTrailerVideoKey from "../../hooks/useTrailerVideoKey";
 import { useState } from "react";
 
 const VideoBackground = ({ movieId }) => {
@@ -13,10 +13,7 @@ const VideoBackground = ({ movieId }) => {
   if (!trailerKey) {
     return (
       <div className="w-full h-screen bg-black flex items-center justify-center text-white">
-        <div
-          className="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full border-current border-t-transparent"
-          role="status"
-        ></div>
+        <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin"></div>
         <span className="visually-hidden">Loading...</span>
       </div>
     );
@@ -36,9 +33,8 @@ const VideoBackground = ({ movieId }) => {
         className={`absolute w-full h-full top-0 left-0 object-cover transition-opacity duration-500 ${
           isIframeLoaded ? "opacity-100" : "opacity-0"
         }`}
-        src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&loop=1&playlist=${trailerKey}`}
+        src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&loop=1&controls=0&rel=0&showinfo=0&playlist=${trailerKey}`}
         title="YouTube trailer"
-        frameBorder="0"
         allow="autoplay; encrypted-media"
         allowFullScreen
         onLoad={() => {

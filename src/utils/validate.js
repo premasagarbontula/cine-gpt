@@ -1,32 +1,31 @@
 // Check only name
-export const checkValidName = (name = "") => {
+export const checkValidName = (name = "", t) => {
   const trimmed = name.trim();
   const namePattern = /^[a-zA-Z\s]+$/;
 
-  if (!trimmed) return "Name is required.";
-  if (!namePattern.test(trimmed))
-    return "Name can only contain letters and spaces.";
+  if (!trimmed) return t.nameRequired;
+  if (!namePattern.test(trimmed)) return t.nameInvalid;
   return undefined;
 };
 
 // Check only email
-export const checkValidEmail = (email = "") => {
+export const checkValidEmail = (email = "", t) => {
   const trimmed = email.trim();
   const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-  if (!trimmed) return "Email is required.";
-  if (!emailPattern.test(trimmed)) return "Email is not valid.";
+  if (!trimmed) return t.emailRequired;
+  if (!emailPattern.test(trimmed)) return t.emailInvalid;
   return undefined;
 };
 
 // Check only password
-export const checkValidPassword = (password = "") => {
+export const checkValidPassword = (password = "", t) => {
   const trimmed = password.trim();
   const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
-  if (!trimmed) return "Password is required.";
+  if (!trimmed) return t.passwordRequired;
   if (!passwordPattern.test(trimmed)) {
-    return "Password must be at least 8 characters long and include uppercase, lowercase letters, and a number.";
+    return t.passwordInvalid;
   }
   return undefined;
 };
@@ -35,13 +34,14 @@ export const checkValidPassword = (password = "") => {
 export const checkValidDataFields = (
   email = "",
   password = "",
-  name = undefined
+  name = undefined,
+  t
 ) => {
   const errors = {};
 
-  const emailError = checkValidEmail(email);
-  const passwordError = checkValidPassword(password);
-  const nameError = name !== undefined ? checkValidName(name) : undefined;
+  const emailError = checkValidEmail(email, t);
+  const passwordError = checkValidPassword(password, t);
+  const nameError = name !== undefined ? checkValidName(name, t) : undefined;
 
   if (emailError) errors.email = emailError;
   if (passwordError) errors.password = passwordError;
@@ -52,9 +52,9 @@ export const checkValidDataFields = (
 
 // Blur handlers
 
-export const handleNameInputError = (nameRef, setFormErrors) => {
+export const handleNameInputError = (nameRef, setFormErrors, t) => {
   const name = nameRef.current.value;
-  const error = checkValidName(name);
+  const error = checkValidName(name, t);
 
   setFormErrors((prev) => ({
     ...prev,
@@ -62,9 +62,9 @@ export const handleNameInputError = (nameRef, setFormErrors) => {
   }));
 };
 
-export const handleEmailInputError = (emailRef, setFormErrors) => {
+export const handleEmailInputError = (emailRef, setFormErrors, t) => {
   const email = emailRef.current.value;
-  const error = checkValidEmail(email);
+  const error = checkValidEmail(email, t);
 
   setFormErrors((prev) => ({
     ...prev,
@@ -72,9 +72,9 @@ export const handleEmailInputError = (emailRef, setFormErrors) => {
   }));
 };
 
-export const handlePasswordInputError = (passwordRef, setFormErrors) => {
+export const handlePasswordInputError = (passwordRef, setFormErrors, t) => {
   const password = passwordRef.current.value;
-  const error = checkValidPassword(password);
+  const error = checkValidPassword(password, t);
 
   setFormErrors((prev) => ({
     ...prev,

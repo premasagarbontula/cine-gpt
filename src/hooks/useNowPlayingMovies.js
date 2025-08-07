@@ -1,33 +1,39 @@
-import { useEffect } from "react";
-import { useDispatch } from "react-redux";
+import { useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
-import { addNowPlayingMovies } from "../utils/moviesSlice";
+import { addNowPlayingMovies } from "../redux/moviesSlice";
 import { fallbackNowPlayingMovies } from "../utils/staticApiData";
 
 export const useNowPlayingMovies = () => {
   const dispatch = useDispatch();
+  const nowPlayingMovies = useSelector(
+    (state) => state.movies.nowPlayingMovies
+  );
 
-  const getNowPlayingMovies = async () => {
+  const getNowPlayingMovies = useCallback(async () => {
+    const controller = new AbortController();
+    const timeoutId = setTimeout(() => controller.abort(), 3000);
+
     try {
       const response = await fetch(
-        "https://api.themoviedb.org/3/movie/now_playing?page=1",
-        API_OPTIONS
+        "https://api.themoviedb.org/3/movie/now_playing?language=en-US&page=1",
+        { ...API_OPTIONS, signal: controller.signal }
       );
-
+      clearTimeout(timeoutId);
       if (!response.ok) throw new Error("Failed to fetch TMDB data");
 
       const data = await response.json();
       dispatch(addNowPlayingMovies(data.results));
     } catch (error) {
-      console.log(error);
-      console.error("TMDB fetch failed, using fallback:", error);
       dispatch(addNowPlayingMovies(fallbackNowPlayingMovies));
     }
-  };
+  }, [dispatch]);
 
   useEffect(() => {
-    getNowPlayingMovies();
-  }, []);
+    if (!nowPlayingMovies || nowPlayingMovies.length === 0) {
+      getNowPlayingMovies();
+    }
+  }, [getNowPlayingMovies, nowPlayingMovies]);
 };
 
 export default useNowPlayingMovies;

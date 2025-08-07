@@ -1,5 +1,7 @@
-export const NETFLIX_LOGO_URL =
-  "https://help.nflxext.com/helpcenter/OneTrust/oneTrust_production_2025-07-14/consent/87b6a5c0-0104-4e96-a291-092c11350111/01938dc4-59b3-7bbc-b635-c4131030e85f/logos/dd6b162f-1a32-456a-9cfe-897231c7763c/4345ea78-053c-46d2-b11e-09adaef973dc/Netflix_Logo_PMS.png";
+import bannerImage from "../assets/cinegpt_banner.png";
+export const BANNER_IMAGE = bannerImage;
+
+export const CINEGPT_LOGO_URL = "";
 
 export const getRandomColor = () => {
   const colors = [
@@ -16,8 +18,17 @@ export const API_OPTIONS = {
   method: "GET",
   headers: {
     accept: "application/json",
-    Authorization: `Bearer ${process.env.REACT_APP_API_KEY}`,
+    Authorization: `Bearer ${process.env.REACT_APP_TMDB_KEY}`,
   },
 };
 
-export const TMDB_POSTER_PATH = "https://image.tmdb.org/t/p/w200";
+export const TMDB_BACKDROP_PATH = "https://image.tmdb.org/t/p/w1280";
+export const TMDB_POSTER_PATH = "https://image.tmdb.org/t/p/w342";
+
+export const SUPPORTED_LANGUAGES = [
+  { id: "en", name: "English" },
+  { id: "hi", name: "Hindi" },
+  { id: "es", name: "Spanish" },
+];
+
+export const OPENAI_KEY = process.env.REACT_APP_OPENAI_API_KEY;

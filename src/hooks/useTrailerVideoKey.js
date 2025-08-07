@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { API_OPTIONS } from "../utils/constants";
-import { addTrailerVideoKey } from "../utils/moviesSlice";
+import { addTrailerVideoKey } from "../redux/moviesSlice";
 import { fallbackTrailerKeys } from "../utils/staticApiData";
 
 const useTrailerVideoKey = (movieId) => {
@@ -12,12 +12,17 @@ const useTrailerVideoKey = (movieId) => {
 
   useEffect(() => {
     const fetchTrailer = async () => {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 5000);
       try {
         const data = await fetch(
           `https://api.themoviedb.org/3/movie/${movieId}/videos?language=en-US`,
-          API_OPTIONS
+          {
+            ...API_OPTIONS,
+            signal: controller.signal,
+          }
         );
-
+        clearTimeout(timeoutId);
         if (!data.ok) throw new Error("TMDB Video fetch failed");
 
         const json = await data.json();
