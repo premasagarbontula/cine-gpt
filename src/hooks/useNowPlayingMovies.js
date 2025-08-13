@@ -30,6 +30,7 @@ export const useNowPlayingMovies = () => {
   }, [dispatch]);
 
   useEffect(() => {
+    
     if (!nowPlayingMovies || nowPlayingMovies.length === 0) {
       getNowPlayingMovies();
     }

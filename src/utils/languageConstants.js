@@ -62,7 +62,45 @@ export const LANGUAGECONSTANTS = {
     passwordInvalid:
       "पासवर्ड कम से कम 8 अक्षरों का होना चाहिए और इसमें अपरकेस, लोअरकेस अक्षर और एक संख्या होनी चाहिए।",
   },
+  te: {
+    landingPageHeading: "అపరిమిత సినిమాలు, టీవీ కార్యక్రమాలు మరియు మరిన్ని",
+    landingPagePriceText: "₹149 నుంచి ప్రారంభం. ఎప్పుడైనా రద్దు చేసుకోవచ్చు.",
+    landingPageSignUpText:
+      "చూడటానికి సిద్ధంగా ఉన్నారా? మీకు ఇష్టమైన సినిమాలను చూడటానికి సైన్ అప్ చేయండి.",
+    signIn: "సైన్ ఇన్",
+    signUp: "సైన్ అప్",
+    emailPlaceholder: "ఇమెయిల్",
+    passwordPlaceholder: "పాస్వర్డ్",
+    namePlaceholder: "పూర్తి పేరు",
+    signInAgreementText:
+      "సైన్ ఇన్ చేయడం ద్వారా, మీరు మా వినియోగ నియమాలు మరియు గోప్యతా విధానాన్ని అంగీకరిస్తున్నారు.",
+    signUpAgreementText:
+      "సైన్ అప్ చేయడం ద్వారా, మీరు మా వినియోగ నియమాలు మరియు గోప్యతా విధానాన్ని అంగీకరిస్తున్నారు.",
+    toggleToSignUp: "CineGPTకి కొత్తగా ఉన్నారా?",
+    toggleToSignIn: "ఇప్పటికే ఖాతా ఉందా?",
+    signUpNow: "ఇప్పుడే సైన్ అప్ చేయండి.",
+    signInNow: "ఇప్పుడే సైన్ ఇన్ చేయండి.",
+    processing: "ప్రాసెస్ చేస్తున్నాం...",
+    search: "వెతకండి",
+    gptSearchPlaceholder: "మీరు ఈరోజు ఏమి చూడాలనుకుంటున్నారు?",
 
+    // Validation messages
+    nameRequired: "పేరు తప్పనిసరి.",
+    nameInvalid: "పేరులో అక్షరాలు మరియు ఖాళీలు మాత్రమే ఉండాలి.",
+    emailRequired: "ఇమెయిల్ తప్పనిసరి.",
+    emailInvalid: "ఇమెయిల్ సరైనది కాదు.",
+    passwordRequired: "పాస్వర్డ్ తప్పనిసరి.",
+    passwordInvalid:
+      "పాస్వర్డ్ కనీసం 8 అక్షరాలు ఉండాలి మరియు పెద్ద అక్షరాలు, చిన్న అక్షరాలు మరియు ఒక సంఖ్య ఉండాలి.",
+    authErrors: {
+      generic: "దోషం సంభవించింది. దయచేసి మళ్లీ ప్రయత్నించండి.",
+      emailInUse: "ఈ ఇమెయిల్ ఇప్పటికే ఉపయోగంలో ఉంది.",
+      invalidEmail: "చెల్లుబాటు అయ్యే ఇమెయిల్ నమోదు చేయండి.",
+      weakPassword: "బలమైన పాస్వర్డ్ నమోదు చేయండి.",
+      userNotFound: "వినియోగదారు కనుగొనబడలేదు.",
+      wrongPassword: "తప్పు పాస్వర్డ్.",
+    },
+  },
   es: {
     landingPageHeading: "Películas, series y mucho más, sin límites",
     landingPagePriceText: "Desde ₹149. Cancela cuando quieras.",

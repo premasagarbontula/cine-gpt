@@ -4,10 +4,20 @@ import { FaPlay } from "react-icons/fa";
 import { MdInfoOutline } from "react-icons/md";
 import { GENRE_ID_MAP } from "../../utils/staticApiData";
 import ShowMoreInfo from "../ShowMoreInfo/ShowMoreInfo";
+import { useSelector } from "react-redux";
 
-const VideoTitle = ({ title, overview, posterPath, releaseDate, genreIds }) => {
+const VideoTitle = ({
+  title,
+  overview,
+  posterPath,
+  releaseDate,
+  genreIds,
+  movieId,
+}) => {
   const [isShowMoreInfo, setIsShowMoreInfo] = useState(false);
-
+  const trailerKey = useSelector(
+    (state) => state.movies?.trailerVideoKey[movieId]
+  );
   // Construct full poster image path
   const posterImage = `${TMDB_POSTER_PATH}${posterPath}`;
 
@@ -19,11 +29,14 @@ const VideoTitle = ({ title, overview, posterPath, releaseDate, genreIds }) => {
         .join(", ")
     : "Unknown";
 
+  const handlePlayClick = () => {
+    window.open(`https://www.youtube.com/watch?v=${trailerKey}`, "_blank");
+  };
   return (
     <>
       {/* Title and Buttons Overlay */}
       <div
-        className={`absolute inset-0 w-full h-full top-[12%] flex flex-col px-4 md:px-12 text-white justify-center transition-opacity duration-300 ${
+        className={`absolute inset-0 w-full h-full top-[14%] flex flex-col px-4 md:px-12 text-white justify-center transition-opacity duration-300 ${
           isShowMoreInfo ? "opacity-30" : "opacity-100"
         }`}
       >
@@ -34,7 +47,10 @@ const VideoTitle = ({ title, overview, posterPath, releaseDate, genreIds }) => {
 
         {/* Buttons: Play & More Info */}
         <div className="relative z-20 flex flex-wrap items-center gap-4">
-          <button className="flex items-center gap-2 bg-white text-black px-4 sm:px-6 py-2 rounded-md text-sm sm:text-base md:text-lg font-semibold hover:bg-gray-200 transition">
+          <button
+            className="flex items-center gap-2 bg-white text-black px-4 sm:px-6 py-2 rounded-md text-sm sm:text-base md:text-lg font-semibold hover:bg-gray-200 transition"
+            onClick={handlePlayClick}
+          >
             <FaPlay /> Play
           </button>
 

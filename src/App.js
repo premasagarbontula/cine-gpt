@@ -1,7 +1,4 @@
-import { Provider } from "react-redux";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-
-import appStore from "./redux/appStore";
 import Login from "./features/auth/Login";
 import Browse from "./features/home/Browse";
 import ProtectedRoute from "./features/auth/ProtectedRoute";
@@ -24,17 +21,13 @@ const appRouter = createBrowserRouter([
           </ProtectedRoute>
         ),
       },
-      { path: "*", element: <NotFound /> }, // Catch-all route for 404
+      { path: "*", element: <NotFound /> },
     ],
   },
 ]);
 
 function App() {
-  return (
-    <Provider store={appStore}>
-      <RouterProvider router={appRouter} />
-    </Provider>
-  );
+  return <RouterProvider router={appRouter} />;
 }
 
 export default App;

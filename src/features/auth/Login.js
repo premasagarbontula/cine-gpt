@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addUser } from "../../redux/userSlice";
 import { LANGUAGECONSTANTS as LANG } from "../../utils/languageConstants";
 import { BANNER_IMAGE } from "../../utils/constants";
+import { getThemeStyles } from "../../utils/themeConstants";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -25,6 +26,8 @@ const Login = () => {
 
   const user = useSelector((state) => state.user);
   const langKey = useSelector((state) => state.config.lang);
+  const mode = useSelector((state) => state.config.mode);
+  const themeStyles = getThemeStyles(mode);
   const t = LANG[langKey];
 
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -35,7 +38,6 @@ const Login = () => {
   const emailRef = useRef(null);
   const passwordRef = useRef(null);
 
-  // Auto redirect if already logged in or URL query param exists
   useEffect(() => {
     if (user) {
       navigate("/browse");
@@ -49,12 +51,13 @@ const Login = () => {
     else if (mode === "signin") setIsSignInForm(true);
 
     if (mode === "signup" || mode === "signin") {
-      navigate("/login", { replace: true }); // Remove query param
+      navigate("/login", { replace: true });
     }
   }, [user, navigate, location.search]);
 
-  // Handles login/signup submit
-  const handleSubmit = () => {
+  const handleSubmit = (e) => {
+    e.preventDefault(); // Prevent default form submission behavior
+
     const name = isSignInForm ? undefined : nameRef.current.value.trim();
     const email = emailRef.current.value.trim();
     const password = passwordRef.current.value;
@@ -68,7 +71,6 @@ const Login = () => {
     setFormErrors({});
     setIsLoading(true);
 
-    // SIGN UP
     if (!isSignInForm) {
       createUserWithEmailAndPassword(auth, email, password)
         .then(async (userCredential) => {
@@ -82,127 +84,142 @@ const Login = () => {
           navigate("/browse");
         })
         .catch((error) => {
-          let msg = "Something went wrong. Please try again.";
+          let msg = t.authErrors.generic;
           if (error.code === "auth/email-already-in-use")
-            msg = "Email already exists.";
+            msg = t.authErrors.emailInUse;
           else if (error.code === "auth/invalid-email")
-            msg = "Invalid email format.";
+            msg = t.authErrors.invalidEmail;
           else if (error.code === "auth/weak-password")
-            msg = "Password is too weak.";
+            msg = t.authErrors.weakPassword;
           setFormErrors({ email: msg });
         })
         .finally(() => setIsLoading(false));
-    }
-
-    // SIGN IN
-    else {
+    } else {
       signInWithEmailAndPassword(auth, email, password)
         .catch((error) => {
-          let msg = "Something went wrong. Please try again.";
-          if (error.code === "auth/user-not-found") msg = "User not found.";
+          let msg = t.authErrors.generic;
+          if (error.code === "auth/user-not-found")
+            msg = t.authErrors.userNotFound;
           else if (error.code === "auth/wrong-password")
-            msg = "Incorrect password.";
-          else if (error.code === "auth/invalid-email") msg = "Invalid email.";
+            msg = t.authErrors.wrongPassword;
+          else if (error.code === "auth/invalid-email")
+            msg = t.authErrors.invalidEmail;
           setFormErrors({ email: msg });
         })
         .finally(() => setIsLoading(false));
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter") {
+      handleSubmit(e);
+    }
+  };
+
   return (
-    <div className="min-h-screen w-full">
+    <div className={`min-h-screen w-full ${themeStyles.pageBackground}`}>
       <Header />
 
-      {/* Full-screen background image container */}
       <div
         style={{ backgroundImage: `url(${BANNER_IMAGE})` }}
         className="bg-cover bg-center w-full min-h-screen flex items-center justify-center"
       >
-        {/* Auth Form */}
         <form
-          onSubmit={(e) => e.preventDefault()}
-          className="w-full max-w-md sm:mx-4 mx-2 flex flex-col items-start justify-center py-10 px-6 sm:px-10 md:px-16 bg-black bg-opacity-85 rounded-xl"
+          onSubmit={handleSubmit}
+          className={`w-full max-w-md sm:mx-4 mx-2 flex flex-col items-start justify-center py-10 px-6 sm:px-10 md:px-16 rounded-xl ${themeStyles.formBackground}`}
         >
-          <h1 className="text-white font-bold text-2xl sm:text-3xl mb-6">
+          <h1
+            className={`${themeStyles.headingText} font-bold text-2xl sm:text-3xl mb-6`}
+          >
             {isSignInForm ? t.signIn : t.signUp}
           </h1>
 
-          {/* Name Field (only for Sign Up) */}
           {!isSignInForm && (
             <>
               <input
                 ref={nameRef}
                 type="text"
                 placeholder={t.namePlaceholder}
-                className={`p-3 w-full text-lg bg-transparent border rounded text-white ${
-                  formErrors.name ? "border-red-500" : "border-gray-600 mb-3"
+                className={`p-3 mb-3 w-full text-lg bg-transparent border rounded ${
+                  themeStyles.inputText
+                } ${
+                  formErrors.name
+                    ? themeStyles.inputError
+                    : themeStyles.inputBorder
                 }`}
                 onBlur={() => handleNameInputError(nameRef, setFormErrors, t)}
+                onKeyDown={handleKeyDown}
                 required
               />
               {formErrors.name && (
-                <p className="text-red-500 text-sm mt-1 mb-4">
+                <p className={`${themeStyles.errorText} mb-4 mt-1`}>
                   {formErrors.name}
                 </p>
               )}
             </>
           )}
 
-          {/* Email Field */}
           <input
             ref={emailRef}
             type="email"
             placeholder={t.emailPlaceholder}
-            className={`p-3 w-full text-lg bg-transparent border rounded text-white ${
-              formErrors.email ? "border-red-500" : "border-gray-600 mb-3"
+            className={`p-3 w-full text-lg mb-3 bg-transparent border rounded ${
+              themeStyles.inputText
+            } ${
+              formErrors.email
+                ? themeStyles.inputError
+                : themeStyles.inputBorder
             }`}
             onBlur={() => handleEmailInputError(emailRef, setFormErrors, t)}
+            onKeyDown={handleKeyDown}
             required
           />
           {formErrors.email && (
-            <p className="text-red-500 text-sm mt-1 mb-4">{formErrors.email}</p>
+            <p className={`${themeStyles.errorText} mb-4 mt-1`}>
+              {formErrors.email}
+            </p>
           )}
 
-          {/* Password Field */}
           <input
             ref={passwordRef}
             type="password"
             placeholder={t.passwordPlaceholder}
-            className={`p-3 w-full text-lg bg-transparent border rounded text-white ${
-              formErrors.password ? "border-red-500" : "border-gray-600 mb-3"
+            className={`p-3 mb-4 w-full text-lg bg-transparent border rounded ${
+              themeStyles.inputText
+            } ${
+              formErrors.password
+                ? themeStyles.inputError
+                : themeStyles.inputBorder
             }`}
             onBlur={() =>
               handlePasswordInputError(passwordRef, setFormErrors, t)
             }
+            onKeyDown={handleKeyDown}
             required
           />
           {formErrors.password && (
-            <p className="text-red-500 text-sm mt-1 mb-4">
+            <p className={`${themeStyles.errorText} mb-4 mt-1`}>
               {formErrors.password}
             </p>
           )}
 
-          {/* Submit Button */}
           <button
-            type="button"
-            className="bg-red-600 text-white p-2 font-bold w-full rounded hover:bg-red-700 transition duration-300 mb-6"
-            onClick={handleSubmit}
+            type="submit"
+            className={`${themeStyles.primaryButton} p-3 font-bold w-full rounded transition duration-300 mb-6`}
             disabled={isLoading}
           >
             {isLoading ? t.processing : isSignInForm ? t.signIn : t.signUp}
           </button>
 
-          {/* Agreement Text */}
-          <span className="text-gray-400 text-sm mb-4">
+          <span className={`${themeStyles.secondaryText} text-sm mb-4`}>
             {isSignInForm ? t.signInAgreementText : t.signUpAgreementText}
           </span>
 
-          {/* Toggle Signin/Signup */}
-          <span className="text-gray-400 text-sm sm:text-base">
+          <span className={`${themeStyles.secondaryText} text-sm sm:text-base`}>
             {isSignInForm ? t.toggleToSignUp : t.toggleToSignIn}
             <button
               type="button"
-              className="text-white font-bold hover:underline ml-1"
+              className={`${themeStyles.linkText} font-bold hover:underline ml-1`}
               onClick={() => {
                 setFormErrors({});
                 setIsSignInForm(!isSignInForm);

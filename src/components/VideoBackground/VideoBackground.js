@@ -20,7 +20,7 @@ const VideoBackground = ({ movieId }) => {
   }
 
   return (
-    <div className="absolute top-0 left-0 w-full h-full -z-10 overflow-hidden">
+    <div className="absolute top-0 left-0 w-full h-full overflow-hidden">
       {!isIframeLoaded && (
         <img
           src={`https://img.youtube.com/vi/${trailerKey}/hqdefault.jpg`}
@@ -33,9 +33,10 @@ const VideoBackground = ({ movieId }) => {
         className={`absolute w-full h-full top-0 left-0 object-cover transition-opacity duration-500 ${
           isIframeLoaded ? "opacity-100" : "opacity-0"
         }`}
-        src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&loop=1&controls=0&rel=0&showinfo=0&playlist=${trailerKey}`}
+        src={`https://www.youtube.com/embed/${trailerKey}?autoplay=1&mute=1&loop=1&playlist=${trailerKey}&controls=0&rel=0&modestbranding=1`}
         title="YouTube trailer"
-        allow="autoplay; encrypted-media"
+        allow="autoplay; fullscreen; encrypted-media"
+        frameBorder="0"
         allowFullScreen
         onLoad={() => {
           setTimeout(() => setIsIframeLoaded(true), 1500);

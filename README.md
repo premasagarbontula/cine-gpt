@@ -1,5 +1,12 @@
 🎬 CineGPT - GPT-powered Movie Recommendation App
+
 CineGPT is an intelligent movie recommendation app built with React and powered by OpenAI GPT and TMDB APIs. Users can search for movie suggestions using natural language and explore categorized movie content like Trending, Popular, Top Rated, and Upcoming titles.
+
+![Landing Page view](./src/assets/cinegpt-Landing%20page%20view.png)
+![Signup view](./src/assets/cinegpt-Signup%20view.png)
+![Browse Page view](./src/assets/cinegpt-Browse%20view.png)
+![Movie Cards view](./src/assets/cinegpt-Movie%20Cards%20view.png)
+![Gpt Search Movie](./src/assets/cinegpt-gpt%20search%20view.png)
 
 🚀 Features
 🔐 Authentication with Firebase
@@ -17,6 +24,8 @@ CineGPT is an intelligent movie recommendation app built with React and powered 
 🔐 Protected routes for authenticated users
 
 💬 GPT integration with language toggle
+
+🌓 Light/Dark mode toggle
 
 🛠️ Tech Stack
 Frontend: React (Create React App), Tailwind CSS
@@ -62,6 +71,10 @@ cine-gpt/
 │   │   │   └── MovieRow.js
 │   │   ├── ShowMoreInfo/
 │   │   │   └── ShowMoreInfo.js
+│   │   ├── ThemeProvider/
+│   │   │   └── ThemeProvider.js
+│   │   ├── ThemeToggle/
+│   │   │   └── ThemeToggle.js
 │   │   ├── VideoBackground/
 │   │   │   └── VideoBackground.js
 │   │   └── VideoTitle/
@@ -103,7 +116,9 @@ cine-gpt/
 │   │   ├── languageConstants.js
 │   │   ├── openai.js
 │   │   ├── staticApiData.js
+│   │   ├── themeConstants.js
 │   │   └── validate.js
+
 │   │
 │   ├── App.js
 │   └── index.js
@@ -155,6 +170,7 @@ cine-gpt/
    - Firebase setup
    - Language configurations
    - Validation functions
+   - Constant Tailwind CSS Theme styles for dark and light themes
 
 8. **Root files**
    - Configuration files
@@ -183,6 +199,9 @@ npm start
 Open http://localhost:3000 to view in browser.
 
 Deploy Link: https://cine-gpt-c4bc8.web.app/
+**Demo Credentials**:
+Email: test@user.com
+Password: Test@1234
 
 ✍️ Author
 Name: Prema Sagar B

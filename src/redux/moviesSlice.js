@@ -25,6 +25,7 @@ const moviesSlice = createSlice({
     addTrailerVideoKey: (state, action) => {
       const { movieId, key } = action.payload;
       state.trailerVideoKey[movieId] = key;
+      
     },
   },
 });

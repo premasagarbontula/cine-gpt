@@ -40,6 +40,7 @@ const MainContainer = () => {
         overview={randomMovie.overview}
         releaseDate={randomMovie.release_date}
         genreIds={randomMovie.genre_ids}
+        movieId={randomMovie.id}
       />
     </div>
   );

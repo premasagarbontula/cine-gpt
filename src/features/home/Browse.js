@@ -10,7 +10,7 @@ import GptSearchPage from "../gpt/GptSearch";
 
 const Browse = () => {
   const showGptSearch = useSelector((state) => state.gpt.showGptSearch);
-
+  console.log("browse");
   // Custom hooks to preload movie data into redux
   useNowPlayingMovies();
   useTopRatedMovies();

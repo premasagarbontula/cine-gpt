@@ -28,6 +28,7 @@ export const TMDB_POSTER_PATH = "https://image.tmdb.org/t/p/w342";
 export const SUPPORTED_LANGUAGES = [
   { id: "en", name: "English" },
   { id: "hi", name: "Hindi" },
+  { id: "te", name: "Telugu" },
   { id: "es", name: "Spanish" },
 ];
 

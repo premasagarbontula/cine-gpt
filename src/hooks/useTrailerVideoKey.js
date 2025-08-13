@@ -9,7 +9,6 @@ const useTrailerVideoKey = (movieId) => {
   const trailerKey = useSelector(
     (state) => state.movies.trailerVideoKey[movieId]
   );
-
   useEffect(() => {
     const fetchTrailer = async () => {
       const controller = new AbortController();
@@ -27,7 +26,7 @@ const useTrailerVideoKey = (movieId) => {
 
         const json = await data.json();
         const trailer = json.results.find((video) => video.type === "Trailer");
-
+        console.log(trailerKey);
         if (trailer) {
           dispatch(addTrailerVideoKey({ movieId, key: trailer.key }));
         } else {
