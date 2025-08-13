@@ -32,7 +32,10 @@ const MovieCard = ({
   const ShowActiveCardInfo = ({ posterImage, title, genres }) => {
     return (
       <div
-        className="absolute z-50 -top-[15%] left-[-25%] w-[300px] h-[350px] bg-gray-900 rounded-xl shadow-lg overflow-hidden animate-fade-in-scale"
+        className="absolute z-50 w-[250px] sm:w-[300px] h-[300px] sm:h-[350px] 
+                   -top-[10%] sm:-top-[15%] 
+                   left-1/2 -translate-x-1/2 sm:left-[-25%] sm:translate-x-0
+                   bg-gray-900 rounded-xl shadow-lg overflow-hidden animate-fade-in-scale"
         onClick={handlePlayClick}
       >
         <img
@@ -41,19 +44,24 @@ const MovieCard = ({
           className="w-full h-3/5 object-fill"
         />
         <div className="p-2">
-          <h2 className="text-xl text-red-600 font-bold mb-1">{title}</h2>
+          <h2 className="text-lg sm:text-xl text-red-600 font-bold mb-1">
+            {title}
+          </h2>
           <div className="flex p-1 gap-2">
-            <button className="text-3xl text-white" onClick={handlePlayClick}>
+            <button
+              className="text-2xl sm:text-3xl text-white"
+              onClick={handlePlayClick}
+            >
               <FaCirclePlay />
             </button>
-            <button className="text-3xl text-white">
+            <button className="text-2xl sm:text-3xl text-white">
               <CiCirclePlus />
             </button>
-            <button className="text-3xl text-white">
+            <button className="text-2xl sm:text-3xl text-white">
               <AiOutlineLike />
             </button>
           </div>
-          <p className="text-sm text-gray-300 p-1">
+          <p className="text-xs sm:text-sm text-gray-300 p-1">
             Genres : <span className="text-blue-400">{genres}</span>
           </p>
         </div>
@@ -63,11 +71,15 @@ const MovieCard = ({
 
   return (
     <div
-      className="relative group w-28 md:w-48 flex-shrink-0 mr-2 border border-white rounded-lg transition-transform duration-300 hover:z-30"
+      className="relative group w-24 sm:w-28 md:w-36 lg:w-48 flex-shrink-0 mr-2 border border-white rounded-lg transition-transform duration-300"
       onMouseEnter={() => onMouseEnter(id)}
       onMouseLeave={onMouseLeave}
     >
-      <img src={posterImage} alt={title} className="rounded-lg" />
+      <img
+        src={posterImage}
+        alt={title}
+        className="rounded-lg w-full h-full object-cover"
+      />
 
       {isActive && (
         <ShowActiveCardInfo
