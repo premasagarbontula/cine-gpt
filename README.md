@@ -1,13 +1,14 @@
 🎬 CineGPT - GPT-powered Movie Recommendation App
 
-CineGPT is an intelligent movie recommendation app built with React and powered by OpenAI GPT and TMDB APIs. Users can search for movie suggestions using natural language and explore categorized movie content like Trending, Popular, Top Rated, and Upcoming titles.
-
 [![Live Demo](https://img.shields.io/badge/Live-Demo-success)](https://cine-gpt-c4bc8.web.app/)
 
 ## Demo Credentials
 
 **Email:** test@user.com  
 **Password:** Test@1234
+
+CineGPT is an intelligent movie recommendation app built with React and powered by OpenAI GPT and TMDB APIs. Users can search for movie suggestions using natural language and explore categorized movie content like Trending, Popular, Top Rated, and Upcoming titles.
+
 
 ## 📷 Screenshots
 
