@@ -31,7 +31,9 @@ CineGPT is an intelligent movie recommendation app built with React and powered 
 
 ![Gpt Search Movie](./src/assets/cinegpt-gpt%20search%20view.png)
 
-🚀 Features
+
+###🚀 Features
+
 🔐 Authentication with Firebase
 
 🤖 GPT-powered movie search
@@ -50,7 +52,8 @@ CineGPT is an intelligent movie recommendation app built with React and powered 
 
 🌓 Light/Dark mode toggle
 
-🛠️ Tech Stack
+
+### 🛠️ Tech Stack
 Frontend: React (Create React App), Tailwind CSS
 
 State Management: Redux Toolkit
